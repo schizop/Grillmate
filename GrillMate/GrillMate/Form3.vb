@@ -156,4 +156,23 @@ Public Class Form3
         ' logout logic here
     End Sub
 
+    Private Sub btnEditMenu_Click(sender As Object, e As EventArgs) Handles btnEditMenu.Click
+
+
+
+
+        Dim f As New Form()
+        Dim editor As New MenuEditorControl()
+        editor.Dock = DockStyle.Fill
+
+        f.Controls.Add(editor)
+        f.Text = "Menu Editor"
+        f.Size = New Size(800, 600) ' Adjust window size
+        f.StartPosition = FormStartPosition.CenterParent
+
+        f.ShowDialog()
+
+
+
+    End Sub
 End Class

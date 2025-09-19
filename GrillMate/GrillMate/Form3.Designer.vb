@@ -34,6 +34,7 @@ Partial Class Form3
         btnSubmit = New Button()
         dgvOrder = New DataGridView()
         flpCategory = New FlowLayoutPanel()
+        btnEditMenu = New Button()
         pnlHeaderLine.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvOrder, ComponentModel.ISupportInitialize).BeginInit()
@@ -63,7 +64,7 @@ Partial Class Form3
         ' lblDashboard
         ' 
         lblDashboard.AutoSize = True
-        lblDashboard.Font = New Font("Segoe UI", 28F, FontStyle.Bold)
+        lblDashboard.Font = New Font("Segoe UI", 28.0F, FontStyle.Bold)
         lblDashboard.Location = New Point(536, 23)
         lblDashboard.Name = "lblDashboard"
         lblDashboard.Size = New Size(199, 51)
@@ -144,11 +145,21 @@ Partial Class Form3
         flpCategory.Size = New Size(802, 57)
         flpCategory.TabIndex = 21
         ' 
+        ' btnEditMenu
+        ' 
+        btnEditMenu.Location = New Point(1139, 120)
+        btnEditMenu.Name = "btnEditMenu"
+        btnEditMenu.Size = New Size(117, 49)
+        btnEditMenu.TabIndex = 22
+        btnEditMenu.Text = "Edit Menu"
+        btnEditMenu.UseVisualStyleBackColor = True
+        ' 
         ' Form3
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1280, 720)
+        Controls.Add(btnEditMenu)
         Controls.Add(Label2)
         Controls.Add(flpCategory)
         Controls.Add(dgvOrder)
@@ -181,4 +192,5 @@ Partial Class Form3
     Friend WithEvents btnSubmit As Button
     Friend WithEvents dgvOrder As DataGridView
     Friend WithEvents flpCategory As FlowLayoutPanel
+    Friend WithEvents btnEditMenu As Button
 End Class

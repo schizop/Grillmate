@@ -25,3 +25,4 @@ C:\Users\Dodong\source\repos\GrillMate\GrillMate\bin\Debug\net8.0-windows\runtim
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.vbproj.AssemblyReference.cache
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.vbproj.Up2Date
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.Form3.resources
+C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.MenuEditorControl.resources
