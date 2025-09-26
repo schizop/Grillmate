@@ -14,5 +14,8 @@
     <Compile Update="MenuEditorControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="OrderHistoryFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

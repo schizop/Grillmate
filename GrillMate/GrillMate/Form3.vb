@@ -1,19 +1,28 @@
 ﻿Imports System.Data.SqlClient
-Imports Microsoft.Data.SqlClient
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar
 
 Public Class Form3
 
     Private connectionString As String = "Server=AEGON;Database=GrillMate;Trusted_Connection=True;"
     Private currentCategory As String = "All"
+    Private selectedTableId As Integer = -1   ' <-- DECLARATION
 
     Private Sub Form3_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadCategories()   ' Load category buttons
         LoadMenuItems()    ' Load all menu items initially
         LoadTables()       ' Load table buttons
         InitializeOrderGrid()
+
+        ' Payment methods
+        If cmbPaymentMethod IsNot Nothing Then
+            cmbPaymentMethod.Items.Clear()
+            cmbPaymentMethod.Items.Add("Cash")
+            cmbPaymentMethod.Items.Add("GCash")
+            cmbPaymentMethod.SelectedIndex = 0
+        End If
     End Sub
 
-
+    ' ---------------------- CATEGORY ----------------------
     Private Sub LoadCategories()
         flpCategory.Controls.Clear()
 
@@ -45,14 +54,13 @@ Public Class Form3
         End Using
     End Sub
 
-
     Private Sub Category_Click(sender As Object, e As EventArgs)
         Dim btn As Button = CType(sender, Button)
         currentCategory = btn.Tag.ToString()
         LoadMenuItems(currentCategory)
     End Sub
 
-
+    ' ---------------------- MENU ITEMS ----------------------
     Private Sub LoadMenuItems(Optional category As String = "All")
         flpMenu.Controls.Clear()
 
@@ -84,16 +92,6 @@ Public Class Form3
         End Using
     End Sub
 
-    Private Sub InitializeOrderGrid()
-        dgvOrder.Columns.Clear()
-        dgvOrder.Columns.Add("ItemName", "Item")
-        dgvOrder.Columns.Add("Price", "Price")
-        dgvOrder.Columns.Add("Quantity", "Quantity")
-        dgvOrder.Columns.Add("Total", "Total")
-        dgvOrder.Columns("Price").DefaultCellStyle.Format = "C2"
-        dgvOrder.Columns("Total").DefaultCellStyle.Format = "C2"
-    End Sub
-
     Private Sub Item_Click(sender As Object, e As EventArgs)
         Dim btn As Button = CType(sender, Button)
         Dim itemName As String = btn.Text
@@ -113,6 +111,28 @@ Public Class Form3
         UpdateTotal()
     End Sub
 
+    ' ---------------------- ORDER GRID ----------------------
+    Private Sub InitializeOrderGrid()
+        dgvOrder.Columns.Clear()
+        dgvOrder.Columns.Add("ItemName", "Item")
+        dgvOrder.Columns.Add("Price", "Price")
+        dgvOrder.Columns.Add("Quantity", "Quantity")
+        dgvOrder.Columns.Add("Total", "Total")
+        dgvOrder.Columns("Price").DefaultCellStyle.Format = "C2"
+        dgvOrder.Columns("Total").DefaultCellStyle.Format = "C2"
+    End Sub
+
+    Private Sub UpdateTotal()
+        Dim total As Decimal = 0
+        For Each row As DataGridViewRow In dgvOrder.Rows
+            If row.Cells("Total").Value IsNot Nothing Then
+                total += CDec(row.Cells("Total").Value)
+            End If
+        Next
+        lblTotal.Text = "Total: ₱" & total.ToString("N2")
+    End Sub
+
+    ' ---------------------- TABLES ----------------------
     Private Sub LoadTables()
         flpTables.Controls.Clear()
         Dim query As String = "SELECT TableID, TableName, Status FROM Tables"
@@ -136,43 +156,133 @@ Public Class Form3
                         btn.BackColor = Color.Red
                     End If
 
+                    AddHandler btn.Click, AddressOf Table_Click
                     flpTables.Controls.Add(btn)
                 End While
             End Using
         End Using
     End Sub
 
-    Private Sub UpdateTotal()
-        Dim total As Decimal = 0
-        For Each row As DataGridViewRow In dgvOrder.Rows
-            If row.Cells("Total").Value IsNot Nothing Then
-                total += CDec(row.Cells("Total").Value)
+    Private Sub Table_Click(sender As Object, e As EventArgs)
+        Dim btn As Button = CType(sender, Button)
+        selectedTableId = CInt(btn.Tag)
+
+        ' highlight selected
+        For Each ctrl As Control In flpTables.Controls
+            If TypeOf ctrl Is Button Then
+                CType(ctrl, Button).FlatStyle = FlatStyle.Standard
             End If
         Next
-        lblTotal.Text = "Total: ₱" & total.ToString("N2")
+        btn.FlatStyle = FlatStyle.Popup
     End Sub
 
+    ' ---------------------- SUBMIT ORDER ----------------------
+    Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+        If dgvOrder.Rows.Count = 0 Then
+            MessageBox.Show("No items in the order.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        If cmbPaymentMethod.SelectedItem Is Nothing Then
+            MessageBox.Show("Please select a payment method.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        Dim paymentType As String = cmbPaymentMethod.SelectedItem.ToString()
+        Dim totalAmount As Decimal = 0
+
+        For Each row As DataGridViewRow In dgvOrder.Rows
+            If row.IsNewRow Then Continue For
+            totalAmount += Convert.ToDecimal(row.Cells("Total").Value)
+        Next
+
+        Using conn As New SqlConnection(connectionString)
+            conn.Open()
+            Dim trans As SqlTransaction = conn.BeginTransaction() ' ✅ transaction declared here
+
+            Try
+                ' Insert into Orders
+                Dim queryOrder As String =
+                "INSERT INTO Orders (OrderDate, TableNo, Total, PaymentType) 
+                 OUTPUT INSERTED.OrderID 
+                 VALUES (@OrderDate, @TableNo, @Total, @PaymentType)"
+
+                Dim orderId As Integer
+                Using cmdOrder As New SqlCommand(queryOrder, conn, trans)
+                    cmdOrder.Parameters.AddWithValue("@OrderDate", DateTime.Now)
+                    cmdOrder.Parameters.AddWithValue("@TableNo", selectedTableId) ' make sure this is set when clicking a table
+                    cmdOrder.Parameters.AddWithValue("@Total", totalAmount)
+                    cmdOrder.Parameters.AddWithValue("@PaymentType", paymentType)
+
+                    orderId = Convert.ToInt32(cmdOrder.ExecuteScalar())
+                End Using
+
+                ' Insert each order item into OrderDetails
+                For Each row As DataGridViewRow In dgvOrder.Rows
+                    If row.IsNewRow Then Continue For
+
+                    Dim productName As String = row.Cells("ItemName").Value.ToString().Trim()
+                    Dim price As Decimal = Convert.ToDecimal(row.Cells("Price").Value)
+                    Dim quantity As Integer = Convert.ToInt32(row.Cells("Quantity").Value)
+                    Dim subtotal As Decimal = Convert.ToDecimal(row.Cells("Total").Value)
+
+                    ' Get ProductID from MenuItems
+                    Dim productId As Integer = -1
+                    Using cmdProduct As New SqlCommand("SELECT ItemID FROM MenuItems WHERE ItemName = @ItemName", conn, trans)
+                        cmdProduct.Parameters.AddWithValue("@ItemName", productName)
+                        Dim result = cmdProduct.ExecuteScalar()
+                        If result IsNot Nothing Then
+                            productId = Convert.ToInt32(result)
+                        End If
+                    End Using
+
+                    If productId <> -1 Then
+                        Dim queryDetail As String =
+                        "INSERT INTO OrderDetails (OrderID, ProductID, Quantity, Price, Subtotal) 
+                         VALUES (@OrderID, @ProductID, @Quantity, @Price, @Subtotal)"
+                        Using cmdDetail As New SqlCommand(queryDetail, conn, trans)
+                            cmdDetail.Parameters.AddWithValue("@OrderID", orderId)
+                            cmdDetail.Parameters.AddWithValue("@ProductID", productId)
+                            cmdDetail.Parameters.AddWithValue("@Quantity", quantity)
+                            cmdDetail.Parameters.AddWithValue("@Price", price)
+                            cmdDetail.Parameters.AddWithValue("@Subtotal", subtotal)
+                            cmdDetail.ExecuteNonQuery()
+                        End Using
+                    End If
+                Next
+
+                trans.Commit() ' ✅ commit transaction
+                MessageBox.Show("Order submitted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                dgvOrder.Rows.Clear()
+                lblTotal.Text = "Total: ₱0.00"
+
+            Catch ex As Exception
+                trans.Rollback() ' ✅ rollback if error
+                MessageBox.Show("Error submitting order: " & ex.Message)
+            End Try
+        End Using
+    End Sub
+
+
+    ' ---------------------- OTHER BUTTONS ----------------------
     Private Sub Logout_Click(sender As Object, e As EventArgs) Handles Logout.Click
         ' logout logic here
     End Sub
 
     Private Sub btnEditMenu_Click(sender As Object, e As EventArgs) Handles btnEditMenu.Click
-
-
-
-
         Dim f As New Form()
         Dim editor As New MenuEditorControl()
         editor.Dock = DockStyle.Fill
 
         f.Controls.Add(editor)
         f.Text = "Menu Editor"
-        f.Size = New Size(800, 600) ' Adjust window size
+        f.Size = New Size(800, 600)
         f.StartPosition = FormStartPosition.CenterParent
-
         f.ShowDialog()
+    End Sub
 
-
-
+    Private Sub Backbtn_Click(sender As Object, e As EventArgs) Handles Backbtn.Click
+        Form2.Show()   ' Show Form3 again
+        Me.Close()     ' Close the current form (OrderHistoryFrm)
     End Sub
 End Class

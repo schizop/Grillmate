@@ -26,3 +26,4 @@ C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillM
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.vbproj.Up2Date
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.Form3.resources
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.MenuEditorControl.resources
+C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.OrderHistoryFrm.resources

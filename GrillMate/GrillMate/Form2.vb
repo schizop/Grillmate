@@ -14,7 +14,11 @@
     End Sub
 
     Private Sub btnOrderHistory_Click(sender As Object, e As EventArgs) Handles btnOrderHistory.Click
-        ' Add order history functionality
+        Dim orderHistoryForm As New OrderHistoryFrm()
+
+        ' Show it as a dialog (modal)
+        orderHistoryForm.ShowDialog()
+        Me.Hide()
     End Sub
 
     Private Sub btnReportsAnalytics_Click(sender As Object, e As EventArgs) Handles btnReportsAnalytics.Click

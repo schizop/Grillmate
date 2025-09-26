@@ -108,10 +108,10 @@ Partial Class MenuEditorControl
         ' 
         dgvMenuEditor.AllowUserToAddRows = False
         dgvMenuEditor.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvMenuEditor.Location = New Point(92, 55)
+        dgvMenuEditor.Location = New Point(106, 27)
         dgvMenuEditor.Name = "dgvMenuEditor"
         dgvMenuEditor.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvMenuEditor.Size = New Size(512, 295)
+        dgvMenuEditor.Size = New Size(468, 295)
         dgvMenuEditor.TabIndex = 10
         ' 
         ' btnClear
@@ -147,7 +147,7 @@ Partial Class MenuEditorControl
         Controls.Add(Label1)
         Controls.Add(txtItemName)
         Name = "MenuEditorControl"
-        Size = New Size(706, 448)
+        Size = New Size(697, 456)
         CType(dgvMenuEditor, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()

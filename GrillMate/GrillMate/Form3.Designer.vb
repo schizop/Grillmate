@@ -35,6 +35,8 @@ Partial Class Form3
         dgvOrder = New DataGridView()
         flpCategory = New FlowLayoutPanel()
         btnEditMenu = New Button()
+        cmbPaymentMethod = New ComboBox()
+        Backbtn = New Button()
         pnlHeaderLine.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvOrder, ComponentModel.ISupportInitialize).BeginInit()
@@ -43,6 +45,7 @@ Partial Class Form3
         ' pnlHeaderLine
         ' 
         pnlHeaderLine.BackColor = Color.DarkGray
+        pnlHeaderLine.Controls.Add(Backbtn)
         pnlHeaderLine.Controls.Add(Logout)
         pnlHeaderLine.Controls.Add(lblDashboard)
         pnlHeaderLine.Location = New Point(-1, 0)
@@ -64,7 +67,7 @@ Partial Class Form3
         ' lblDashboard
         ' 
         lblDashboard.AutoSize = True
-        lblDashboard.Font = New Font("Segoe UI", 28.0F, FontStyle.Bold)
+        lblDashboard.Font = New Font("Segoe UI", 28F, FontStyle.Bold)
         lblDashboard.Location = New Point(536, 23)
         lblDashboard.Name = "lblDashboard"
         lblDashboard.Size = New Size(199, 51)
@@ -115,7 +118,7 @@ Partial Class Form3
         ' lblTotal
         ' 
         lblTotal.AutoSize = True
-        lblTotal.Location = New Point(868, 623)
+        lblTotal.Location = New Point(871, 623)
         lblTotal.Name = "lblTotal"
         lblTotal.Size = New Size(45, 15)
         lblTotal.TabIndex = 18
@@ -154,11 +157,30 @@ Partial Class Form3
         btnEditMenu.Text = "Edit Menu"
         btnEditMenu.UseVisualStyleBackColor = True
         ' 
+        ' cmbPaymentMethod
+        ' 
+        cmbPaymentMethod.FormattingEnabled = True
+        cmbPaymentMethod.Location = New Point(1123, 623)
+        cmbPaymentMethod.Name = "cmbPaymentMethod"
+        cmbPaymentMethod.Size = New Size(121, 23)
+        cmbPaymentMethod.TabIndex = 23
+        cmbPaymentMethod.Text = "Payment Method"
+        ' 
+        ' Backbtn
+        ' 
+        Backbtn.Location = New Point(34, 38)
+        Backbtn.Name = "Backbtn"
+        Backbtn.Size = New Size(75, 23)
+        Backbtn.TabIndex = 24
+        Backbtn.Text = "Back"
+        Backbtn.UseVisualStyleBackColor = True
+        ' 
         ' Form3
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1280, 720)
+        Controls.Add(cmbPaymentMethod)
         Controls.Add(btnEditMenu)
         Controls.Add(Label2)
         Controls.Add(flpCategory)
@@ -193,4 +215,6 @@ Partial Class Form3
     Friend WithEvents dgvOrder As DataGridView
     Friend WithEvents flpCategory As FlowLayoutPanel
     Friend WithEvents btnEditMenu As Button
+    Friend WithEvents cmbPaymentMethod As ComboBox
+    Friend WithEvents Backbtn As Button
 End Class

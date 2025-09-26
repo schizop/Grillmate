@@ -16,7 +16,7 @@ Imports System.Reflection
 <Assembly: System.Reflection.AssemblyCompanyAttribute("GrillMate"),  _
  Assembly: System.Reflection.AssemblyConfigurationAttribute("Debug"),  _
  Assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0"),  _
- Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74ba07755ddf97960ab99b9b7673363f80dda302"),  _
+ Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+774f7652f896d15f4658513d1f5aea8fd5bedc87"),  _
  Assembly: System.Reflection.AssemblyProductAttribute("GrillMate"),  _
  Assembly: System.Reflection.AssemblyTitleAttribute("GrillMate"),  _
  Assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0"),  _
