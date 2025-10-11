@@ -3,8 +3,6 @@ C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\bin\Debug\net8.0-windows\GrillM
 C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\bin\Debug\net8.0-windows\GrillMate.runtimeconfig.json
 C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\bin\Debug\net8.0-windows\GrillMate.dll
 C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\bin\Debug\net8.0-windows\GrillMate.pdb
-C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.Form1.resources
-C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.Form2.resources
 C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.vbproj.GenerateResource.cache
 C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Dodong\Source\Repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.AssemblyInfoInputs.cache
@@ -24,6 +22,11 @@ C:\Users\Dodong\source\repos\GrillMate\GrillMate\bin\Debug\net8.0-windows\runtim
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.vbproj.AssemblyReference.cache
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.vbproj.Up2Date
-C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.Form3.resources
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.MenuEditorControl.resources
 C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.OrderHistoryFrm.resources
+C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.TableManagementFrm.resources
+C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.Dashboard.resources
+C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.LoginFrm.resources
+C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.OrderEntryFrm.resources
+C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.ReservationFrm.resources
+C:\Users\Dodong\source\repos\GrillMate\GrillMate\obj\Debug\net8.0-windows\GrillMate.DeliveryFrm.resources

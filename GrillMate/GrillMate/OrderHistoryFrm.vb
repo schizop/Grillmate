@@ -176,7 +176,7 @@ Public Class OrderHistoryFrm
     End Sub
 
     Private Sub Backbtn_Click(sender As Object, e As EventArgs) Handles Backbtn.Click
-        Form2.Show()   ' Show Form3 again
+        Dashboard.Show()   ' Show Form3 again
         Me.Close()     ' Close the current form (OrderHistoryFrm)
     End Sub
 End Class

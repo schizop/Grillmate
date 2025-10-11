@@ -167,6 +167,7 @@ Partial Class OrderHistoryFrm
         Controls.Add(Search)
         Controls.Add(DgvOrders)
         Name = "OrderHistoryFrm"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "OrderHistoryFrm"
         CType(DgvOrders, ComponentModel.ISupportInitialize).EndInit()
         CType(DgvOrderDetails, ComponentModel.ISupportInitialize).EndInit()

@@ -2,19 +2,28 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="Form1.vb">
+    <Compile Update="DeliveryFrm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Form2.vb">
+    <Compile Update="LoginFrm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Form3.vb">
+    <Compile Update="Dashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="OrderEntryFrm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MenuEditorControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="OrderHistoryFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ReservationFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TableManagementFrm.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
